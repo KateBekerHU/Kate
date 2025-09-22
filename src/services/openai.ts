@@ -7,9 +7,17 @@ class OpenAIService {
     this.apiKey = import.meta.env.VITE_OPENAI_API_KEY;
     this.assistantId = import.meta.env.VITE_OPENAI_ASSISTANT_ID;
     
-    if (!this.apiKey || !this.assistantId) {
-      throw new Error('OpenAI API key en Assistant ID zijn vereist');
+    if (!this.apiKey) {
+      console.error('VITE_OPENAI_API_KEY is missing from environment variables');
+      throw new Error('OpenAI API key is vereist. Controleer je .env bestand.');
     }
+    
+    if (!this.assistantId) {
+      console.error('VITE_OPENAI_ASSISTANT_ID is missing from environment variables');
+      throw new Error('OpenAI Assistant ID is vereist. Controleer je .env bestand.');
+    }
+    
+    console.log('OpenAI service initialized successfully');
   }
 
   private async fetchAPI(endpoint: string, options: RequestInit = {}) {
